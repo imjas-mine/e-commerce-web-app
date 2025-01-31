@@ -2,10 +2,14 @@ package com.jasmine.webApp.Model;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 @Component
+@Entity
 public class Product {
+	@Id
 	private int productId;
 	private String productname;
 	private int price;

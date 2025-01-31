@@ -4,39 +4,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jasmine.webApp.Model.Product;
+import com.jasmine.webApp.Repository.ProductRepo;
 
 @Service
 public class ProductService {
 
-	List<Product> products = new ArrayList<Product>(
-			Arrays.asList(new Product(101, "cup", 10), new Product(102, "pink bottle", 20)));
+	@Autowired
+	ProductRepo repo;
 
 	public List<Product> getProducts() {
-		return products;
+		return repo.findAll();
 	}
 
 	public Product getProductbyId(int id) {
-		return products.stream().filter(product -> product.getProductId() == id).findFirst()
-				.orElse(new Product(100, "item not found", 0));
+		return repo.findById(id).orElse(new Product());
 	}
 
 	public void addProduct(Product prod) {
-		products.add(prod);
+		repo.save(prod);
 	}
 
 	public void updateProduct(Product prod) {
-		products.stream().filter(product -> product.getProductId() == prod.getProductId()).forEach(product -> {
-			product.setProductname(prod.getProductname());
-			product.setPrice(prod.getPrice());
-		});
+		repo.save(prod);
 
 	}
 
 	public void deleteProduct(int prodId) {
-		products.removeIf(product -> product.getProductId() == prodId);
+		repo.deleteById(prodId);
 
 	}
 }
