@@ -10,18 +10,33 @@ import com.jasmine.webApp.Model.Product;
 
 @Service
 public class ProductService {
-	
-	List<Product> products=new ArrayList<Product>( Arrays.asList(new Product(101,"cup",10),new Product(102,"pink bottle",20)));
-	
-	public List<Product> getProducts(){
+
+	List<Product> products = new ArrayList<Product>(
+			Arrays.asList(new Product(101, "cup", 10), new Product(102, "pink bottle", 20)));
+
+	public List<Product> getProducts() {
 		return products;
 	}
-	
+
 	public Product getProductbyId(int id) {
-		return products.stream().filter(product->product.getProductId()==id).findFirst().orElse(new Product(100,"item not found",0));
+		return products.stream().filter(product -> product.getProductId() == id).findFirst()
+				.orElse(new Product(100, "item not found", 0));
 	}
-	
+
 	public void addProduct(Product prod) {
 		products.add(prod);
+	}
+
+	public void updateProduct(Product prod) {
+		products.stream().filter(product -> product.getProductId() == prod.getProductId()).forEach(product -> {
+			product.setProductname(prod.getProductname());
+			product.setPrice(prod.getPrice());
+		});
+
+	}
+
+	public void deleteProduct(int prodId) {
+		products.removeIf(product -> product.getProductId() == prodId);
+
 	}
 }
