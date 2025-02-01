@@ -3,6 +3,7 @@ package com.jasmine.webApp.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jasmine.webApp.Model.Product;
 import com.jasmine.webApp.service.ProductService;
 
+@CrossOrigin
 @RestController
+@RequestMapping("/api")
 public class ProductController {
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
+	@RequestMapping("/")
+	public String greet() {
+		return "hello jasmine";
+	}
+	
 	@GetMapping("/products")
-	public List<Product> getProducts() {
-		return productService.getProducts();
+	public List<Product> getAllProducts() {
+		System.out.println(productService.getAllProducts());
+		return productService.getAllProducts();
 	}
 
 	@GetMapping("/products/{prodId}")
