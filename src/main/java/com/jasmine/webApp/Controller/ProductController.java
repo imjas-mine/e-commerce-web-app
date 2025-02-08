@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -95,4 +96,13 @@ public class ProductController {
 			return new ResponseEntity<String>("product not found",HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@GetMapping("/products/search")
+	public ResponseEntity<List<Product>> searchProducts(@ RequestParam String keyword){
+		System.out.println("searching with "+keyword);
+		List<Product> products=productService.searchProducts(keyword);
+		return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
+	}
+	
+	
 }

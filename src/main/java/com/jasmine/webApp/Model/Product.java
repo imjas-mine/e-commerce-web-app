@@ -28,6 +28,7 @@ public class Product {
 	private String name;
 	private String brand;
 	private String description;
+	private String category;
 	private BigDecimal price;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd")
@@ -140,5 +141,13 @@ public class Product {
 
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

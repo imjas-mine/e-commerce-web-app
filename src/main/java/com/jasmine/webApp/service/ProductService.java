@@ -46,4 +46,9 @@ public class ProductService {
 		
 		return repo.findById(productId).orElse(null);
 	}
+
+	public List<Product> searchProducts(String keyword) {
+		return repo.searchProducts(keyword);
+		
+	}
 }
